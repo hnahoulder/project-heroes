@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 
 
@@ -26,7 +27,8 @@ import {AdminComponent} from './admin/admin.component';
         BrowserModule,
         FormsModule,
         HeroesModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

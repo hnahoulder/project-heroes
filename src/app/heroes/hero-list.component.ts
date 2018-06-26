@@ -1,14 +1,16 @@
+import {Observable} from 'rxjs/Observable';
+import {switchMap} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {Hero} from './hero';
 
-import {Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import {HeroService} from './hero.service';
+import {Hero, HeroService} from './hero.service';
+import {of} from 'rxjs/observable/of';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     template: `
         <h2>HEROES</h2>
+        <p>Number: {{myNumber | async}}</p>
         <ul class="items">
             <li *ngFor="let hero of heroes$ | async"
                 [class.selected]="hero.id === selectedId">
@@ -24,6 +26,9 @@ import {HeroService} from './hero.service';
 })
 export class HeroListComponent implements OnInit {
     heroes$: Observable<Hero[]>;
+    myNumber: Observable<number>;
+    numberSubscription: Subscription;
+
     private selectedId: number;
 
     constructor(private service: HeroService,
@@ -37,7 +42,9 @@ export class HeroListComponent implements OnInit {
                 this.selectedId = +params.get('id');
                 return this.service.getHeroes();
             })
-        );
+        );       // this.numberSubscription = this.service.myNumber.subscribe(value => this.myNumber = value);
+        this.myNumber = this.service.getNumber();
+
     }
 
 }
