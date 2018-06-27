@@ -5,18 +5,16 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
 
-export class Hero {
+export class Crisis {
     constructor(public id: number, public name: string) {
     }
 }
 
-const HEROES = [
-    new Hero(11, 'Mr. Nice'),
-    new Hero(12, 'Narco'),
-    new Hero(13, 'Bombasto'),
-    new Hero(14, 'Celeritas'),
-    new Hero(15, 'Magneta'),
-    new Hero(16, 'RubberMan')
+const CRISES = [
+    new Crisis(1, 'Dragon Burning Cities'),
+    new Crisis(2, 'Sky Rains Great White Sharks'),
+    new Crisis(3, 'Giant Asteroid Heading For Earth'),
+    new Crisis(4, 'Procrastinators Meeting Delayed Again'),
 ];
 
 @Injectable()
@@ -27,13 +25,13 @@ export class HeroService {
         return of(HEROES);
     }
 
-    getNumber() {
+   /* getNumber() {
         return of(668686538755657575);
     }
 
     getNumber2 = () => {
         return of(2);
-    }
+    }*/
 
     getHero(id: number | string) {
         return this.getHeroes().pipe(
