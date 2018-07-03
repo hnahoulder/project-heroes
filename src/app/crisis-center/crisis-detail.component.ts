@@ -3,59 +3,52 @@ import {Component, OnInit, HostBinding} from '@angular/core';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {slideInDownAnimation} from '../animations';
-import {Hero, HeroService} from './hero.service';
-import {of} from 'rxjs/observable/of';
+// import {of} from 'rxjs/observable/of';
+import {Crisis, CrisisService} from './crisis.service';
 
 @Component({
     template: `
-        <h2>HEROES</h2>
-        <div *ngIf="hero$ | async as hero">
-            <h3>"{{ hero.name }}"</h3>
+        <h2>CRISE DETAIL</h2>
+        <div *ngIf="crisis$ | async as crisis">
+            <h3>"{{ crisis.name }}"</h3>
             <div>
-                <label>Id: </label>{{ hero.id }}
+                <label>Id: </label>{{ crisis.id }}
             </div>
             <div>
                 <label>Name: </label>
-                <input [(ngModel)]="hero.name" placeholder="name"/>
+                <input [(ngModel)]="crisis.name" placeholder="name"/>
             </div>
             <p>
-                <button (click)="gotoHeroes(hero)">Back</button>
+                <button (click)="gotoCrises(crisis)">Back</button>
             </p>
         </div>
     `,
     animations: [slideInDownAnimation]
 })
-export class HeroDetailComponent implements OnInit {
+export class CrisisDetailComponent implements OnInit {
     @HostBinding('@routeAnimation') routeAnimation = true;
     @HostBinding('style.display') display = 'block';
     @HostBinding('style.position') position = 'absolute';
 
-    hero$: Observable<Hero>;
-    myObs$: Observable<number>;
-
+    crisis$: Observable<Crisis>;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private service: HeroService) {
+                private service: CrisisService) {
     }
 
     ngOnInit() {
-        this.hero$ = this.route.paramMap.pipe(
+        this.crisis$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) =>
-                this.service.getHero(params.get('id')))
+                this.service.getCrisis(params.get('id')))
         );
-        /*myObservable$.subscribe(value => {
-            myNumber = value;
-        })*/
 
     }
 
 
-    gotoHeroes(hero: Hero) {
-        const heroId = hero ? hero.id : null;
-        // Pass along the hero id if available
-        // so that the HeroList component can select that hero.
-        // Include a junk 'foo' property for fun.
-        this.router.navigate(['/heroes', {id: heroId, foo: 'foo'}]);
+    gotoCrises(crisis: Crisis) {
+        const crisisId = crisis ? crisis.id : null;
+        // Relative navigation back to the crises
+        this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
     }
 }

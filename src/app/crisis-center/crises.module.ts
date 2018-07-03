@@ -2,25 +2,30 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
-import {HeroListComponent} from './hero-list.component';
-import {HeroDetailComponent} from './hero-detail.component';
+import {CrisisListComponent} from './crisis-list.component';
+import {CrisisDetailComponent} from './crisis-detail.component';
 
-import {HeroService} from './hero.service';
-import {HeroRoutingModule} from './heroes-routing.module';
+import {CrisisService} from './crisis.service';
+import {CrisesRoutingModule} from './crises-routing.module';
+import {CrisisCenterComponent} from './crisis-center.component';
+import {CrisisCenterHomeComponent} from './crisis-center-home.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        HeroRoutingModule
+        CrisesRoutingModule
+
     ],
     declarations: [
-        HeroListComponent,
-        HeroDetailComponent
+        CrisisCenterComponent,
+        CrisisDetailComponent,
+        CrisisCenterHomeComponent,
+        CrisisListComponent
     ],
-    providers: [HeroService]
+    providers: [CrisisService]
 })
 
-export class HeroesModule {
+export class CrisisCenterModule {
 }

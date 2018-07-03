@@ -14,31 +14,19 @@ const CRISES = [
     new Crisis(1, 'Dragon Burning Cities'),
     new Crisis(2, 'Sky Rains Great White Sharks'),
     new Crisis(3, 'Giant Asteroid Heading For Earth'),
-    new Crisis(4, 'Procrastinators Meeting Delayed Again'),
+    new Crisis(4, 'Procrastinators Meeting Delayed Again')
 ];
 
 @Injectable()
-export class HeroService {
-    myNumber = new Subject<any>();
+export class CrisisService {
 
-    getHeroes() {
-        return of(HEROES);
+    getCrises() {
+        return of(CRISES);
     }
 
-   /* getNumber() {
-        return of(668686538755657575);
-    }
-
-    getNumber2 = () => {
-        return of(2);
-    }*/
-
-    getHero(id: number | string) {
-        return this.getHeroes().pipe(
-            // (+) before `id` turns the string into a number
-            map(heroes => heroes.find(hero => hero.id === +id))
+    getCrisis(id: number | string) {
+        return this.getCrises().pipe(
+            map(crises => crises.find(crisis => crisis.id === +id))
         );
     }
-
-
 }

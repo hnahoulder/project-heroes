@@ -10,4 +10,6 @@
         </div>
     </div>
 </nav>
+<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
 <router-outlet></router-outlet>
+<router-outlet name="popup"></router-outlet>

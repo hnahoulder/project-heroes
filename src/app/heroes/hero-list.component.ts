@@ -30,7 +30,7 @@ export class HeroListComponent implements OnInit {
     numberTest: number;
     myNumber: Observable<number>;
 
-    private selectedId: number;
+    selectedId: number;
 
     constructor(private service: HeroService,
                 private route: ActivatedRoute) {

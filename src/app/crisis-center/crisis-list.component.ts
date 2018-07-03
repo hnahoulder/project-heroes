@@ -3,49 +3,51 @@ import {switchMap} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 
-import {Hero, HeroService} from './hero.service';
+import {Crisis, CrisisService} from './crisis.service';
 import {of} from 'rxjs/observable/of';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     template: `
-        <h2>HEROES</h2>
-        <p>Number: {{myNumber | async}}</p>
-        <p>Number: {{numberTest}}</p>
-        <ul class="items">
-            <li *ngFor="let hero of heroes$ | async"
-                [class.selected]="hero.id === selectedId">
-                <a [routerLink]="['/hero', hero.id]">
-                    <span class="badge">{{ hero.id }}</span>{{ hero.name }}
+        <h2>CRISES</h2>
+        <!--<ul class="items">
+            <li *ngFor="let crisis of crises$ | async"
+                [class.selected]="crisis.id === selectedId">
+                <a [routerLink]="['/crisis-center', crisis.id]">
+                    <span class="badge">{{ crisis.id }}</span>{{ crisis.name }}
                 </a>
             </li>
-        </ul>
+        </ul>-->
+        <table class="table">
+            <tr *ngFor="let crisis of crises$ | async"
+                [ngClass]="{'selected': crisis.id === selectedId}"
+                [routerLink]="['/crisis-center', crisis.id]">
+                <td>{{ crisis.id }}</td>
+                <td>{{ crisis.name }}</td>
+            </tr>
+        </table>
 
-        <button routerLink="/sidekicks">Go to sidekicks</button>
+        <router-outlet></router-outlet>
 
     `
 })
-export class HeroListComponent implements OnInit {
-    heroes$: Observable<Hero[]>;
-    numberTest: number;
-    myNumber: Observable<number>;
+export class CrisisListComponent implements OnInit {
+    crises$: Observable<Crisis[]>;
 
-    private selectedId: number;
+    selectedId: number;
 
-    constructor(private service: HeroService,
+    constructor(private service: CrisisService,
                 private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.heroes$ = this.route.paramMap.pipe(
+        this.crises$ = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
                 // (+) before `params.get()` turns the string into a number
-                this.selectedId = +params.get('id');
-                return this.service.getHeroes();
+                // this.selectedId = +params.get('id');
+                return this.service.getCrises();
             })
         );
-        this.service.getNumber2().subscribe(value => this.numberTest = value);
-        this.myNumber = this.service.getNumber();
 
     }
 
